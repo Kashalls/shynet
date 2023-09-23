@@ -275,7 +275,8 @@ CELERY_TASK_ALWAYS_EAGER = os.getenv("CELERY_TASK_ALWAYS_EAGER", "True") == "Tru
 CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
 if "CELERY_BROKER_TRANSPORT_OPTIONS" in os.environ:
     try:
-        CELERY_BROKER_TRANSPORT_OPTIONS = json.loads(os.environ.get('CELERY_BROKER_TRANSPORT_OPTIONS'))
+        CELERY_BROKER_TRANSPORT_OPTIONS = "{'master_name':'redis-master'}"
+        #CELERY_BROKER_TRANSPORT_OPTIONS = json.loads(os.environ.get('CELERY_BROKER_TRANSPORT_OPTIONS', '{}'))
     except json.JSONDecodeError as e:
         print(f"Error decoding transport options: ${e}")
 
