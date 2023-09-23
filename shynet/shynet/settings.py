@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import json
 
 from dotenv import load_dotenv
 
@@ -272,6 +273,12 @@ INTERNAL_IPS = [
 CELERY_TASK_ALWAYS_EAGER = os.getenv("CELERY_TASK_ALWAYS_EAGER", "True") == "True"
 
 CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL")
+if "CELERY_BROKER_TRANSPORT_OPTIONS" in os.environ:
+    try:
+        CELERY_BROKER_TRANSPORT_OPTIONS = json.loads(os.environ.get('CELERY_BROKER_TRANSPORT_OPTIONS'))
+    except json.JSONDecodeError as e:
+        print(f"Error decoding transport options: ${e}")
+
 CELERY_BROKER_TRANSPORT_OPTIONS = os.getenv("CELERY_BROKER_TRANSPORT_OPTIONS")
 CELERY_REDIS_SOCKET_TIMEOUT = 15
 
