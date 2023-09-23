@@ -14,8 +14,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            milesmcc/shynet
-            ghcr.io/milesmcc/shynet
+            ghcr.io/kashalls/shynet
           tags:
             type=raw,value=${{ github.event.inputs.tag }}
 
